@@ -3,62 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-Frame Camera Background</title>
-    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Acceder a la cámara del dispositivo
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function(stream) {
-                    var video = document.querySelector("#cameraVideo");
-                    video.srcObject = stream;
-                    video.play();
-                })
-                .catch(function(err) {
-                    console.error("Error al acceder a la cámara: " + err);
-                });
-        });
-
-        AFRAME.registerComponent("play-pause", {
-            init: function() {
-                var myVideo = document.querySelector("#dance");
-                var videoControls = this.el;
-                this.el.addEventListener('click', function() {
-                    if (myVideo.paused) {
-                        myVideo.play();
-                        videoControls.setAttribute("src", "#pause");
-                    } else {
-                        myVideo.pause();
-                        videoControls.setAttribute("src", "#play");
-                    }
-                });
-            }
-        });
-    </script>
-    <style>
-        #cameraVideo {
-            display: none; 
-        }
-    </style>
+    <title>AR Image/Video Tracker</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.6.1/aframe/build/aframe-ar.js"></script>
 </head>
 <body>
-    <a-scene>
-        <a-assets>
-            <video id="cameraVideo" autoplay></video>
-            <img id="play" src="./png-transparent-computer-icons-google-play-music-button-play-angle-rectangle-triangle-thumbnail.png">
-            <img id="pause" src="./png-transparent-pause-logo-computer-icons-button-media-player-pause-button-rectangle-black-internet-thumbnail.png">
-            <video id="dance" src="./Paqueta’s dance 🕺🔥.mp4" loop="true"></video>
-        </a-assets>
-        
-        <a-plane src="#cameraVideo" rotation="-90 0 0" width="20" height="20" position="0 0 0"></a-plane>
-        
-        <a-camera>
-            <a-cursor></a-cursor>
-        </a-camera>
-
-        <a-video src="#dance" width="8" height="4.5" position="0 3 -9">
-            <a-image id="videoControls" src="#play" position="0 -3 0" scale="0.5 0.5 1" play-pause></a-image>
-        </a-video>
+    <button id="startAR" style="position: absolute; z-index: 1;">Iniciar AR</button>
+    <a-scene embedded arjs>
+        <a-marker preset="custom" type="pattern" url="path/to/qr-code-marker.patt">
+            <a-video src="#dance" width="1" height="0.5" position="0 0.5 0"></a-video>
+            <a-image src="#image" width="1" height="1" position="0 0.5 0"></a-image>
+        </a-marker>
+        <a-entity camera></a-entity>
     </a-scene>
+
+    <a-assets>
+        <video id="dance" src="./Paqueta’s dance 🕺🔥.mp4" loop="true"></video>
+        <img id="image" src="./path/to/image.png">
+    </a-assets>
 </body>
+<script>
+    document.getElementById('startAR').addEventListener('click', function() {
+        document.querySelector('a-scene').style.display = 'block';
+        document.getElementById('startAR').style.display = 'none';
+    });
+</script>
 </html>
+<!--la wea -->
