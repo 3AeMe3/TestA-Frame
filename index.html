@@ -10,12 +10,12 @@
 <body style="margin: 0; overflow: hidden;">
     <button id="startAR" style="position: absolute; z-index: 1;">Iniciar AR</button>
 
-    <a-scene embedded arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;" style="display: none;">
+    <a-scene embedded arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;">
         <a-marker preset="custom" type="pattern" url="pattern-portrait.patt">
-            <a-video src="#dance" width="1" height="0.5" position="0 0.5 0"></a-video>
-            <a-image src="#image" width="1" height="1" position="0 0.5 0"></a-image>
+            <a-video src="#dance" width="1" height="0.5" position="0 0.5 0" scale="1 1 1"></a-video>
+            <a-image src="#image" width="1" height="1" position="0 0.5 0" scale="1 1 1"></a-image>
         </a-marker>
-        <a-entity camera></a-entity>
+        <a-entity camera position="0 1.6 0" look-controls></a-entity>
     </a-scene>
 
     <a-assets>
