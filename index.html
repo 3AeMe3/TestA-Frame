@@ -7,10 +7,11 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.6.1/aframe/build/aframe-ar.js"></script>
 </head>
-<body>
+<body style="margin: 0; overflow: hidden;">
     <button id="startAR" style="position: absolute; z-index: 1;">Iniciar AR</button>
-    <a-scene embedded arjs>
-        <a-marker preset="custom" type="pattern" url="./pattern-portrait.patt">
+
+    <a-scene embedded arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;" style="display: none;">
+        <a-marker preset="custom" type="pattern" url="pattern-portrait.patt">
             <a-video src="#dance" width="1" height="0.5" position="0 0.5 0"></a-video>
             <a-image src="#image" width="1" height="1" position="0 0.5 0"></a-image>
         </a-marker>
@@ -18,15 +19,18 @@
     </a-scene>
 
     <a-assets>
-        <video id="dance" src="./Paqueta’s dance 🕺🔥.mp4" loop="true"></video>
-        <img id="image" src="./path/to/image.png">
+        <video id="dance" src="Paqueta’s dance 🕺🔥.mp4" loop="true"></video>
+        <img id="image" src="png-transparent-computer-icons-google-play-music-button-play-angle-rectangle-triangle-thumbnail.png">
     </a-assets>
+
+    <script>
+        // Evento para iniciar AR al presionar el botón
+        document.getElementById('startAR').addEventListener('click', function() {
+            // Mostrar la escena AR
+            document.querySelector('a-scene').style.display = 'block';
+            // Ocultar el botón
+            this.style.display = 'none';
+        });
+    </script>
 </body>
-<script>
-    document.getElementById('startAR').addEventListener('click', function() {
-        document.querySelector('a-scene').style.display = 'block';
-        document.getElementById('startAR').style.display = 'none';
-    });
-</script>
 </html>
-<!--la wea -->
